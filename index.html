@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt‑br">
+<head>
+  <meta charset="UTF‑8">
+  <title>Para Anne 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box‑sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a0a2a, #4b1d5d);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #bobbie {
+      width: 150px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: bobbieAppear 1s ease‑out forwards;
+      margin-bottom: 20px;
+    }
+
+    @keyframes bobbieAppear {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    #message {
+      font-size: 1.7em;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: messageAppear 1s ease‑out forwards;
+      animation-delay: 0.5s;
+      max-width: 80%;
+    }
+
+    @keyframes messageAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #nextBtn {
+      padding: 15px 45px;
+      font-size: 1.05em;
+      background-color: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #nextBtn:hover {
+      background: #fff;
+      color: #4b1d5d;
+      box-shadow: 0 0 15px #ff69b4;
+    }
+
+    .final-message {
+      font-size: 2.8em;
+      color: #ff69b4;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
+      animation: glow 2s ease‑in‑out infinite alternate, zoomIn 1s ease‑out forwards;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+      }
+      to {
+        text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493, 0 0 60px #ff69b4;
+      }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Confetes animados para o final */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff69b4;
+      opacity: 0.8;
+      top: -10px;
+      animation: fall 4s infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotateZ(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <img id="bobbie" src="img/bobbie.png" alt="Bobbie Goods">
+  <div id="message">Clique para descobrir algo especial…</div>
+  <button id="nextBtn">Avançar</button>
+
+  <script>
+    const messages = [
+      "Você encontrou um estudante de Ti",
+      "Ele trouxe uma mensagem especial…",
+      "Ele está aqui para revelar algo…",
+      "Algo que meu coração quer dizer à você…",
+      "Anne, você é luz em meus dias…",
+      "Você fez tudo valer a pena…",
+      "E agora chegou o momento…",
+      "Prepare‑se para ver a verdade…",
+      "Eu amo você com todo meu ser…",
+      "Te Amo Anne Pacheco Magalhães 💖"
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById("message");
+    const btn = document.getElementById("nextBtn");
+
+    btn.addEventListener("click", () => {
+      index++;
+      if (index < messages.length - 1) {
+        messageEl.textContent = messages[index];
+        // Reset animation
+        messageEl.style.animation = 'none';
+        setTimeout(() => {
+          messageEl.style.animation = 'messageAppear 0.8s ease-out forwards';
+        }, 10);
+      } else if (index === messages.length - 1) {
+        messageEl.innerHTML = `<div class="final-message">${messages[index]}</div>`;
+        btn.style.display = 'none';
+
+        // criar confetes
+        for (let i = 0; i < 50; i++) {
+          const c = document.createElement('div');
+          c.className = 'confetti';
+          c.style.left = Math.random() * 100 + 'vw';
+          c.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+          c.style.animationDuration = 3 + Math.random()*2 + 's';
+          document.body.appendChild(c);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
